@@ -19,6 +19,9 @@ const eventSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  cover: {
+    type: String,
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);

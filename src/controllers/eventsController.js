@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Event = require("../models/eventsModels");
 
 async function createEvent(req, res) {
@@ -66,10 +65,28 @@ async function deleteEvent(req, res) {
   res.send({ menssage: "eventos deletado com sucesso!" });
 }
 
+async function uploadCover(req, res, photoId) {
+  try {
+    console.log(req.photoId);
+
+    const mongoPayload = {
+      cover: req.photoId + ".jpg",
+    };
+    const coverUpload = await Event.findByIdAndUpdate(
+      req.params.id,
+      mongoPayload,
+      { new: true }
+    );
+    console.log(coverUpload);
+    res.status(200).send({ menssage: "upload efetuado!" });
+  } catch (error) {}
+}
+
 module.exports = {
   createEvent,
   readAllEvent,
   updateEvent,
   deleteEvent,
   readEventByName,
+  uploadCover,
 };

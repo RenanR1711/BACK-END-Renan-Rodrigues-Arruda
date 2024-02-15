@@ -16,8 +16,17 @@ async function loginUser(req, res) {
       res.status(401).send({ message: "credenciais invalidas" });
       return;
     }
-    const TOKEN = jwt.sign({ userId: userExist._id, Permission });
-    res.status(201).send({ menssage: "login efetuado!" });
+    const TOKEN = jwt.sign(
+      {
+        userId: userExist[0]._id,
+
+        userEmail: userExist[0].email,
+        Permission: true,
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "1h" }
+    );
+    res.status(201).send({ menssage: "login efetuado!", token: TOKEN });
   } catch (error) {
     console.log(error);
     res.send({ menssage: "deu pau no login!" });

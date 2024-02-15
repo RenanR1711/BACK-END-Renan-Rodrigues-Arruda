@@ -4,6 +4,7 @@ const app = express();
 const eventsRoutes = require("./routes/eventsRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const verifyToken = require("./middlewares/verifyToken");
 
 const PORT = 3000;
 
@@ -20,7 +21,11 @@ async function connectMongo() {
 
 connectMongo();
 
+/* `app.use(express.json())` is a middleware function that parses incoming requests with JSON payloads.
+It allows the server to handle JSON data sent in the request body. */
+
 app.use(express.json());
+
 app.use("/api/v1/events", eventsRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
